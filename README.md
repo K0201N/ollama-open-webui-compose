@@ -22,6 +22,28 @@ To stop all services:
 docker compose down
 ```
 
+## GPU Configuration
+
+This Docker Compose setup has GPU support disabled by default.
+
+### Using GPU
+
+If you want to use NVIDIA GPU acceleration, uncomment the deploy section in the ollama service in `compose.yml`:
+
+```yaml
+deploy:
+  resources:
+    reservations:
+      devices:
+        - driver: nvidia
+          count: all
+          capabilities: [gpu]
+```
+
+**Prerequisites:**
+
+- NVIDIA Container Toolkit must be configured
+
 ## Open WebUI Features
 
 Open WebUI provides a user-friendly interface for interacting with Ollama models:
@@ -34,7 +56,7 @@ Open WebUI provides a user-friendly interface for interacting with Ollama models
 - **File Uploads**: Share files with models that support file processing
 - **Responsive Design**: Works well on desktop and mobile devices
 
-The WebUI is accessible at http://localhost:3000 after starting the services.
+The WebUI is accessible at <http://localhost:3000> after starting the services.
 
 ## Ollama Command Examples
 

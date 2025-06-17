@@ -7,6 +7,15 @@ services:
     ports:
       - "11434:11434"
     restart: unless-stopped
+    # Uncomment the deploy section below if you want to use GPU acceleration
+    # If you don't have GPU or don't want to use it, keep these lines commented out
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
@@ -21,6 +30,8 @@ services:
     depends_on:
       - ollama
     restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
 volumes:
   ollama_data:
